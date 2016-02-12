@@ -116,11 +116,7 @@
 	</div>
 	<div id='calendar'></div>
 	
-	<div class="container">
-  <h2>Modal Login Example</h2>
-  <!-- Trigger the modal with a button -->
-  <button type="button" class="btn btn-default btn-lg" id="mBtn">Login</button>
-
+<div class="container">
   <!-- Modal -->
   <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
