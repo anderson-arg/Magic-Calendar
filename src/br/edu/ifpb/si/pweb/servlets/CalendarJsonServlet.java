@@ -16,6 +16,7 @@ import com.google.gson.Gson;
 import br.edu.ifpb.si.pweb.dao.CalendarCommentDAO;
 import br.edu.ifpb.si.pweb.dao.DAO;
 import br.edu.ifpb.si.pweb.model.CalendarComment;
+import br.edu.ifpb.si.pweb.model.CalendarConvert;
 import br.edu.ifpb.si.pweb.util.Color;
 
 @WebServlet("/json.do")
@@ -24,17 +25,27 @@ public class CalendarJsonServlet extends HttpServlet {
 
 	// essa class vai pegar todos os dados do banco e jogar no calendario
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List l = new ArrayList();
+		List list = new ArrayList();
+		ArrayList<CalendarComment> auxList = new ArrayList<CalendarComment>();
 		
 		DAO.open();
 			CalendarCommentDAO cmDAO = new CalendarCommentDAO();
-			l = cmDAO.readAll();
+			auxList = (ArrayList<CalendarComment>) cmDAO.readAll();
+			for(CalendarComment cm : auxList){
+				CalendarConvert cv = new CalendarConvert();
+				cv.setId(cm.getId());
+				cv.setStart(cm.getStart());
+				cv.setTitle(cm.getTitle());
+				cv.setColor(cm.getColor());
+				cv.setType(cm.getType());
+				list.add(cv);
+			}
 		DAO.close();
 			
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		PrintWriter out = response.getWriter();
-		out.write(new Gson().toJson(l));
+		out.write(new Gson().toJson(list));
 		
 	}
 

@@ -9,44 +9,33 @@ import javax.persistence.ManyToOne;
 import br.edu.ifpb.si.pweb.interfaces.CalendarInterface;
 
 @Entity
-public class CalendarComment implements CalendarInterface{
+public class CalendarHoliday implements CalendarInterface {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	private String text;
-	private String date;
+	private String startDate;
+	private String endDate;
 	private String color;
 	private int type;
 	@ManyToOne
-	private Usuario usuario;
+	private Admin admin;
 	
-	public CalendarComment(){}
+	public CalendarHoliday(){}
 	
-	public Usuario getUsuario() {
-		return usuario;
+	public Admin getAdmin() {
+		return admin;
 	}
-	
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
+
+	public void setAdmin(Admin admin) {
+		this.admin = admin;
 	}
-	
-	public String getColor() {
-		return color;
-	}
-	
-	public void setColor(String color) {
-		this.color = color;
-	}
-	
+
 	@Override
 	public int getId() {
 		return id;
 	}
-	
-	public void setId(int id) {
-		this.id = id;
-	}
-	
+
 	@Override
 	public String getTitle() {
 		return text;
@@ -57,13 +46,13 @@ public class CalendarComment implements CalendarInterface{
 	}
 	@Override
 	public String getStart() {
-		return date;
+		return startDate;
 	}
 	@Override
 	public void setStart(String start) {
-		this.date = start;
+		this.startDate = start;
 	}
-	
+
 	@Override
 	public int getType() {
 		return type;
@@ -73,4 +62,21 @@ public class CalendarComment implements CalendarInterface{
 	public void setType(int type) {
 		this.type = type;
 	}
+	
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
+	}
+
+	public String getEnd() {
+		return endDate;
+	}
+
+	public void setEnd(String end) {
+		this.endDate = end;
+	}
+
 }

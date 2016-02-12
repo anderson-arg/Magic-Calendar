@@ -64,7 +64,7 @@
 		});
 		
 		$("#login").click(function(){
-	        $("#myModal").modal();
+	        $("#loginModal").modal();
 	    });
 		
 	});
@@ -117,8 +117,9 @@
 	<div id='calendar'></div>
 	
 <div class="container">
+
   <!-- Modal -->
-  <div class="modal fade" id="myModal" role="dialog">
+  <div class="modal fade" id="loginModal" role="dialog">
     <div class="modal-dialog">
     
       <!-- Modal content-->
