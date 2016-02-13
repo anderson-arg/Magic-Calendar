@@ -7,8 +7,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-
-
-
+	<form action="cadPessoa.do" method="post">
+		Nome: <input type="text" name="name" /><br>
+		Senha: <input type="password" name="password" /><br>
+		<input type="submit" value="Cadastrar" />
+	</form>
 </body>
 </html>

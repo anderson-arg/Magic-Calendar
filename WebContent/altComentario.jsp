@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form action="delComment" method="get">
+	<form action="altComment.do" method="get">
 		
 		<input type="hidden" name="id" value=${param.id } />
 		title: <input type="text" name="texto" value=${param.title }/><br>

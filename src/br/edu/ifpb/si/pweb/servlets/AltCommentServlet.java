@@ -11,8 +11,8 @@ import br.edu.ifpb.si.pweb.dao.CalendarCommentDAO;
 import br.edu.ifpb.si.pweb.dao.DAO;
 import br.edu.ifpb.si.pweb.model.CalendarComment;
 
-@WebServlet("/delComment")
-public class DelCommentServlet extends HttpServlet {
+@WebServlet("/altComment.do")
+public class AltCommentServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

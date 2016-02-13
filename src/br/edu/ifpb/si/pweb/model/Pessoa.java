@@ -1,23 +1,23 @@
 package br.edu.ifpb.si.pweb.model;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
 
-@MappedSuperclass
+@Entity
 public abstract class Pessoa {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
-	private String nome;
-	private String senha;
+	private String name;
+	private String password;
 	
 	
 	public Pessoa(String nome, String senha){
-		this.nome = nome;
-		this.senha = senha;
+		this.name = nome;
+		this.password = senha;
 	}
 	
 	public Pessoa(){}
@@ -26,20 +26,20 @@ public abstract class Pessoa {
 		return id;
 	}
 
-	public String getNome() {
-		return nome;
+	public String getName() {
+		return name;
 	}
 	
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setName(String nome) {
+		this.name = nome;
 	}
 	
-	public String getSenha() {
-		return senha;
+	public String getPassword() {
+		return password;
 	}
 	
 	public void setSenha(String senha) {
-		this.senha = senha;
+		this.password = senha;
 	}
 	
 }

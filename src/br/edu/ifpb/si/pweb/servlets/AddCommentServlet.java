@@ -15,7 +15,7 @@ import br.edu.ifpb.si.pweb.model.CalendarComment;
 /**
  * Servlet implementation class ComentarioServlet
  */
-@WebServlet("/addComment")
+@WebServlet("/addComment.do")
 public class AddCommentServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
