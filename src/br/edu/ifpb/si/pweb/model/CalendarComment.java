@@ -26,8 +26,8 @@ public class CalendarComment implements CalendarInterface{
 		return usuario;
 	}
 	
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
+	public void setUsuario(Usuario u) {
+		this.usuario = u;
 	}
 	
 	public String getColor() {

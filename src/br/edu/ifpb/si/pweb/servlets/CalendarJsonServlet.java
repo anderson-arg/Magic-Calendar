@@ -3,7 +3,6 @@ package br.edu.ifpb.si.pweb.servlets;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -14,11 +13,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
-import br.edu.ifpb.si.pweb.dao.CalendarCommentDAO;
 import br.edu.ifpb.si.pweb.dao.DAO;
 import br.edu.ifpb.si.pweb.model.CalendarComment;
 import br.edu.ifpb.si.pweb.model.CalendarConvert;
-import br.edu.ifpb.si.pweb.util.Color;
+import br.edu.ifpb.si.pweb.model.Pessoa;
+import br.edu.ifpb.si.pweb.model.Usuario;
 
 @WebServlet("/json.do")
 public class CalendarJsonServlet extends HttpServlet {
@@ -32,20 +31,24 @@ public class CalendarJsonServlet extends HttpServlet {
 		auxDate = auxDate.substring(pos-4, pos);*/
 		
 		List list = new ArrayList();
-		ArrayList<CalendarComment> auxList = new ArrayList<CalendarComment>();
 		
 		DAO.open();
-			CalendarCommentDAO cmDAO = new CalendarCommentDAO();
-			auxList = (ArrayList<CalendarComment>) cmDAO.readAll();
-			for(CalendarComment cm : auxList){
-				CalendarConvert cv = new CalendarConvert();
-				cv.setId(cm.getId());
-				cv.setStart(cm.getStart());
-				cv.setTitle(cm.getTitle());
-				cv.setColor(cm.getColor());
-				cv.setType(cm.getType());
-				list.add(cv);
+			Pessoa p = (Pessoa) request.getSession(false).getAttribute("logado");
+			if(p != null && p instanceof Usuario){
+				List<CalendarComment> comments = ((Usuario)p).getAllListComment();
+				if(comments.size() > 0){
+					for(CalendarComment cm : comments){
+						CalendarConvert cv = new CalendarConvert();
+						cv.setId(cm.getId());
+						cv.setStart(cm.getStart());
+						cv.setTitle(cm.getTitle());
+						cv.setColor(cm.getColor());
+						cv.setType(cm.getType());
+						list.add(cv);
+					}
+				}
 			}
+		
 		DAO.close();
 			
 		response.setContentType("application/json");

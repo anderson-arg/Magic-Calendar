@@ -8,9 +8,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import br.edu.ifpb.si.pweb.dao.CalendarCommentDAO;
 import br.edu.ifpb.si.pweb.dao.DAO;
+import br.edu.ifpb.si.pweb.dao.UsuarioDAO;
 import br.edu.ifpb.si.pweb.model.CalendarComment;
+import br.edu.ifpb.si.pweb.model.Pessoa;
+import br.edu.ifpb.si.pweb.model.Usuario;
 import br.edu.ifpb.si.pweb.util.CalendarType;
 
 /**
@@ -28,14 +30,17 @@ public class AddCommentServlet extends HttpServlet {
 		c.setType(CalendarType.CALENDAR_COMMENT);
 		
 		DAO.open();
+		UsuarioDAO uDAO = new UsuarioDAO();
+		Pessoa p = (Pessoa) request.getSession(false).getAttribute("logado");
 		
 		DAO.begin();
-		CalendarCommentDAO cm = new CalendarCommentDAO();
-		cm.create(c);
+			((Usuario)p).addComment(c);
+			uDAO.update((Usuario)p);
 		DAO.commit();
 		
 		DAO.close();
 		
+		request.getSession(false).setAttribute("logado", p);
 		response.sendRedirect("index.jsp");
 	}
 

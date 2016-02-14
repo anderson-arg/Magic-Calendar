@@ -8,9 +8,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import br.edu.ifpb.si.pweb.dao.AdminDAO;
 import br.edu.ifpb.si.pweb.dao.CalendarHolidayDAO;
 import br.edu.ifpb.si.pweb.dao.DAO;
+import br.edu.ifpb.si.pweb.model.Admin;
 import br.edu.ifpb.si.pweb.model.CalendarHoliday;
+import br.edu.ifpb.si.pweb.model.Pessoa;
 import br.edu.ifpb.si.pweb.util.CalendarType;
 import br.edu.ifpb.si.pweb.util.Color;
 
@@ -25,19 +28,22 @@ public class AddMovementHolidayServlet extends HttpServlet {
 		String startDate = request.getParameter("startDate").toString();
 		String endDate = request.getParameter("endDate").toString();
 		String descMov = request.getParameter("desc").toString();
-		CalendarHoliday cm = new CalendarHoliday();
-		cm.setTitle(descMov);
-		cm.setStart(startDate);
-		cm.setEnd(endDate);
-		cm.setColor(Color.BLUE);
-		cm.setType(CalendarType.CALENDAR_MOVEMENT);
+		CalendarHoliday ch = new CalendarHoliday();
+		ch.setTitle(descMov);
+		ch.setStart(startDate);
+		ch.setEnd(endDate);
+		ch.setColor(Color.BLUE);
+		ch.setType(CalendarType.CALENDAR_MOVEMENT);
 
-		CalendarHolidayDAO chDAO = new CalendarHolidayDAO();
+		AdminDAO aDAO = new AdminDAO();
+		Pessoa p = (Pessoa) request.getSession(false).getAttribute("logado");
 		DAO.begin();
-		chDAO.create(cm);
+			((Admin)p).addHoliday(ch);
+			aDAO.update((Admin)p);
 		DAO.commit();
 		
 		DAO.close();
+		request.getSession(false).setAttribute("logado", p);
 		response.sendRedirect("/calendar/index.jsp");
 		
 	}

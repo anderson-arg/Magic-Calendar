@@ -23,7 +23,7 @@ public class Usuario extends Pessoa {
 	public Usuario(){}
 	
 	public void addComment(CalendarComment comment){
-		//comment.setUsuario(this);
+		comment.setUsuario(this);
 		this.listComment.add(comment);
 	}
 	
@@ -31,8 +31,8 @@ public class Usuario extends Pessoa {
 		this.listComment.remove(comment);
 	}
 	
-	public ArrayList<CalendarComment> getAllListComment(){
-		return (ArrayList<CalendarComment>) this.listComment;
+	public List<CalendarComment> getAllListComment(){
+		return this.listComment;
 	}
 	
 	public CalendarComment getComment(int id, int type){

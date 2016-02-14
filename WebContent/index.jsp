@@ -70,19 +70,16 @@
 		});
 		
 		$(".fc-prev-button, .fc-next-button, .fc-today-button").click(function(){
-			var moment = $('#calendar').fullCalendar('getDate');
+			var moment = $('#calendar').fullCalendar('getDate').format();
 			$.ajax({
-	            url: "/calendar/allFixedDate.do",
-	            type: "POST",
-	            data: {
-	                "date":moment
-	            },
-	            error:function(){
+	            url: "/calendar/allFixedDate.do?date='"+moment+"' ",
+	            type: "POST"
+	            /*error:function(){
 	                alert("ERRO MENU");
 	            },
 	            success:function(data){
 	            	alert("OK");
-	            }
+	            }*/
 	        });
 	    });
 		
