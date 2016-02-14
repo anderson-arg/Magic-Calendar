@@ -84,10 +84,7 @@
 		list-style-type: none;
 		display: inline-block;
 		margin-right: 30px; 
-	}
-	
-	#menu a{
-		text-decoration: none;
+		margin-top: 20px;
 	}
 	
 	.modal-header, h4, .close {
@@ -107,7 +104,9 @@
 	<div id="topo">
 		<div id="menu">
 			<ul>
-				<li><b id="login">Login</b></li>
+				<c:if test="${empty sessionScope }">
+					<li><b id="login">Login</b></li>
+				</c:if>
 			</ul>
 		</div>
 	</div>

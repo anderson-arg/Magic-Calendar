@@ -6,8 +6,61 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
+
+<style>
+	iframe{
+		position:absolute;
+		width:1000px;
+		height: 880px;
+		left: 50%;
+		top: 50%;
+		margin-left: -500px;
+		margin-top: -200px;
+	}
+	
+	body {
+		margin: 0;
+		padding: 0;
+		font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+		font-size: 14px;
+	}
+	
+	#topo{
+		width: auto;
+		height: 50px;
+	}
+	
+	#menu{
+		position:relative;
+		float: right;
+	}
+	
+	#menu ul li{
+		list-style-type: none;
+		display: inline-block;
+		margin-right: 30px; 
+	}
+	
+	#menu a{
+		text-decoration: none;
+	}
+	
+</style>
+
 </head>
 <body>
-	Logado: ${logado.name }
+	<div id="topo">	
+		<div id="menu">
+			<ul>
+			<c:if test="${not empty sessionScope }">
+				<li><b>Seja Bem Vindo, ${logado.name }</b></li>
+			</c:if>
+				<li id="acceptUser"><b>Accept User</b></li>
+				<li id="registerHoliday"><b>Register Holiday</b></li>
+				<li id="logout"><b>Logout</b></li>
+			</ul>
+		</div>
+	</div>
+	<iframe src="/calendar/index.jsp"></iframe>
 </body>
 </html>
