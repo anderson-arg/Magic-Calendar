@@ -33,7 +33,7 @@ public class AddSubstituteHolidayServlet extends HttpServlet {
 		CalendarHoliday ch = chDAO.readDate(initDate);
 		ch.setTitle(descMov);
 		ch.setSubstituteDate(subDate);
-		ch.setColor(Color.GREEN);
+		ch.setColor(Color.BLUE);
 		ch.setType(CalendarType.CALENDAR_SUBSTITUTE);
 
 		AdminDAO aDAO = new AdminDAO();

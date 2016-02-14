@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 
+import br.edu.ifpb.si.pweb.util.CalendarType;
+
 @Entity
 public class Admin extends Pessoa {
 	@OneToMany(mappedBy="admin", cascade=CascadeType.ALL, fetch=FetchType.EAGER, orphanRemoval=true)
@@ -58,6 +60,16 @@ public class Admin extends Pessoa {
 			}
 			index++;
 		}
+	}
+	
+	public List<CalendarHoliday> getListFixedHoliday(){
+		List<CalendarHoliday> list = new ArrayList<CalendarHoliday>();
+		for(CalendarHoliday holiday : listHoliday){
+			if(holiday.getType() == CalendarType.CALENDAR_FIXED){
+				list.add(holiday);
+			}
+		}
+		return list;
 	}
 	
 }

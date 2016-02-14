@@ -28,7 +28,7 @@ public class AddCommentServlet extends HttpServlet {
 		CalendarComment c = new CalendarComment();
 		c.setStart(request.getParameter("data").toString());
 		c.setTitle(request.getParameter("texto").toString());
-		c.setColor(Color.WHITE);
+		c.setColor(Color.BLACK);
 		c.setType(CalendarType.CALENDAR_COMMENT);
 		
 		DAO.open();

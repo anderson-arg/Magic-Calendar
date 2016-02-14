@@ -7,6 +7,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import br.edu.ifpb.si.pweb.dao.AdminDAO;
+import br.edu.ifpb.si.pweb.dao.DAO;
+
 /**
  * Servlet implementation class FixedDateAllServlet
  */
@@ -19,6 +22,10 @@ public class AllFixedDateServlet extends HttpServlet {
 		date = date.substring(1, 5);			
 		
 		// dar update em todas as datas fixas para gerar em todos os anos
+		DAO.open();
+			AdminDAO aDAO = new AdminDAO();
+			
+		DAO.close();
 		
 	}
 	
