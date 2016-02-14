@@ -19,7 +19,6 @@ public class CalendarHoliday implements CalendarInterface {
 	private String endDate;
 	private String color;
 	private int type;
-	@Transient
 	private String substituteDate;
 	@ManyToOne
 	private Admin admin;

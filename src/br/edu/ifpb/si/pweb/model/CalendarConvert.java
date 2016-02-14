@@ -8,6 +8,7 @@ public class CalendarConvert implements CalendarInterface{
 	private String start;
 	private String end;
 	private String color;
+	private String substituteDate;
 	private int type;
 	
 	public String getColor() {
@@ -18,6 +19,14 @@ public class CalendarConvert implements CalendarInterface{
 		this.color = color;
 	}
 	
+	public String getSubstituteDate() {
+		return substituteDate;
+	}
+
+	public void setSubstituteDate(String substituteDate) {
+		this.substituteDate = substituteDate;
+	}
+
 	@Override
 	public int getId() {
 		return id;

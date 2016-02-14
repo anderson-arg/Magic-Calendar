@@ -43,4 +43,23 @@ public class Usuario extends Pessoa {
 		}
 		return null;
 	}
+	
+	public CalendarComment getComment(int id){
+		for(CalendarComment comment : listComment){
+			if(comment.getId() == id){
+				return comment;
+			}
+		}
+		return null;
+	}
+	
+	public void setComment(CalendarComment c){
+		int index = 0;
+		for(CalendarComment comment : listComment){
+			if(comment.getId() == c.getId()){
+				this.listComment.set(index, c);
+			}
+			index++;
+		}
+	}
 }

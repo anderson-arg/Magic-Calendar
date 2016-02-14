@@ -24,11 +24,12 @@ public class Admin extends Pessoa {
 	}
 	
 	public void delHoliday(CalendarHoliday holiday){
+		holiday.setAdmin(null);
 		this.listHoliday.remove(holiday);
 	}
 	
-	public ArrayList<CalendarHoliday> getAllListHoliday(){
-		return (ArrayList<CalendarHoliday>) this.listHoliday;
+	public List<CalendarHoliday> getAllListHoliday(){
+		return this.listHoliday;
 	}
 	
 	public CalendarHoliday getHoliday(int id, int type){
@@ -38,6 +39,25 @@ public class Admin extends Pessoa {
 			}
 		}
 		return null;
+	}
+	
+	public CalendarHoliday getHoliday(int id){
+		for(CalendarHoliday holiday : listHoliday){
+			if(holiday.getId() == id){
+				return holiday;
+			}
+		}
+		return null;
+	}
+	
+	public void setHoliday(CalendarHoliday ch){
+		int index = 0;
+		for(CalendarHoliday holiday : listHoliday){
+			if(holiday.getId() == ch.getId()){
+				this.listHoliday.set(index, ch);
+			}
+			index++;
+		}
 	}
 	
 }

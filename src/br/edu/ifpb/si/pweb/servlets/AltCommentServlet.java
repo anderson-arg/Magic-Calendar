@@ -26,13 +26,14 @@ public class AltCommentServlet extends HttpServlet {
 		UsuarioDAO uDAO = new UsuarioDAO();
 		Pessoa p = (Pessoa) request.getSession(false).getAttribute("logado");
 		
-		DAO.begin();
-		
 		CalendarComment cm = null;
-		cm = ((Usuario)p).getComment(Integer.parseInt(request.getParameter("id").toString()), CalendarType.CALENDAR_COMMENT);
+		cm = ((Usuario)p).getComment(Integer.parseInt(request.getParameter("id").toString()));
+		
+		DAO.begin();
 		
 		if(tag.equals("update")){
 			cm.setTitle(request.getParameter("texto").toString());
+			((Usuario)p).setComment(cm);
 			uDAO.update((Usuario)p);
 		}else{
 			cm.setUsuario(null);

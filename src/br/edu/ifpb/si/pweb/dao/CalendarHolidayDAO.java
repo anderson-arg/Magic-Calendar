@@ -16,4 +16,14 @@ public class CalendarHolidayDAO extends DAO<CalendarHoliday>{
 			return null;
 		}
 	}
+	
+	public CalendarHoliday readDate(String date){
+		try{
+			Query q = manager.createQuery("select c from CalendarHoliday c where c.startDate= '" + date +"'");
+			CalendarHoliday c = (CalendarHoliday) q.getSingleResult();
+			return c;
+		}catch(NoResultException e){
+			return null;
+		}
+	}
 }

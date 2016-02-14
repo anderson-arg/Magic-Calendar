@@ -48,8 +48,9 @@
 				var typeComment = "${typeComment }";
 				
 				if(typeUser == 'br.edu.ifpb.si.pweb.model.Admin'){
-					window.location.href = "/calendar/altComentario.jsp?id='"+calEvent.id+"'&title='"+calEvent.title+"' ";
+					window.location.href = "/calendar/altHoliday.jsp?id='"+calEvent.id+"'&title='"+calEvent.title+"' ";
 				}
+				
 				if(typeUser == 'br.edu.ifpb.si.pweb.model.Usuario' && calEvent.type == CALENDAR_COMMENT){
 					window.location.href = "/calendar/altComentario.jsp?id='"+calEvent.id+"'&title='"+calEvent.title+"' ";
 				}

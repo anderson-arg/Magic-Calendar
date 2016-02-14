@@ -9,47 +9,42 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import br.edu.ifpb.si.pweb.dao.AdminDAO;
-import br.edu.ifpb.si.pweb.dao.CalendarHolidayDAO;
 import br.edu.ifpb.si.pweb.dao.DAO;
 import br.edu.ifpb.si.pweb.model.Admin;
 import br.edu.ifpb.si.pweb.model.CalendarHoliday;
 import br.edu.ifpb.si.pweb.model.Pessoa;
 import br.edu.ifpb.si.pweb.util.CalendarType;
-import br.edu.ifpb.si.pweb.util.Color;
 
-
-@WebServlet("/addSubstituteHoliday.do")
-public class AddSubstituteHolidayServlet extends HttpServlet {
+/**
+ * Servlet implementation class AltFixedHoliday
+ */
+@WebServlet("/altHoliday.do")
+public class AltHolidayServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String tag = request.getParameter("submit").toLowerCase();
+		
 		DAO.open();
-		
-		String initDate = request.getParameter("date").toString();
-		String subDate = request.getParameter("subDate").toString();
-		String descMov = request.getParameter("desc").toString();
-		
-		CalendarHolidayDAO chDAO = new CalendarHolidayDAO();
-		CalendarHoliday ch = chDAO.readDate(initDate);
-		ch.setTitle(descMov);
-		ch.setSubstituteDate(subDate);
-		ch.setColor(Color.GREEN);
-		ch.setType(CalendarType.CALENDAR_SUBSTITUTE);
-
 		AdminDAO aDAO = new AdminDAO();
 		Pessoa p = (Pessoa) request.getSession(false).getAttribute("logado");
+		CalendarHoliday ch = ((Admin)p).getHoliday(Integer.parseInt(request.getParameter("id").toString()));
+		
 		DAO.begin();
-			((Admin)p).addHoliday(ch);
+		
+		if(tag.equals("update")){
+			ch.setTitle(request.getParameter("texto").toString());
+			((Admin)p).setHoliday(ch);
 			aDAO.update((Admin)p);
+		}else{
+			((Admin)p).delHoliday(ch);
+			aDAO.update((Admin)p);
+		}
+			
 		DAO.commit();
 		
 		DAO.close();
 		request.getSession(false).setAttribute("logado", p);
-		response.sendRedirect("/calendar/index.jsp");
-		
+		response.sendRedirect("index.jsp");
 	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	}
-
 }

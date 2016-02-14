@@ -13,11 +13,15 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
+import br.edu.ifpb.si.pweb.dao.CalendarHolidayDAO;
 import br.edu.ifpb.si.pweb.dao.DAO;
+import br.edu.ifpb.si.pweb.model.Admin;
 import br.edu.ifpb.si.pweb.model.CalendarComment;
 import br.edu.ifpb.si.pweb.model.CalendarConvert;
+import br.edu.ifpb.si.pweb.model.CalendarHoliday;
 import br.edu.ifpb.si.pweb.model.Pessoa;
 import br.edu.ifpb.si.pweb.model.Usuario;
+import br.edu.ifpb.si.pweb.util.CalendarType;
 
 @WebServlet("/json.do")
 public class CalendarJsonServlet extends HttpServlet {
@@ -33,6 +37,31 @@ public class CalendarJsonServlet extends HttpServlet {
 		List list = new ArrayList();
 		
 		DAO.open();
+			CalendarHolidayDAO chDAO = new CalendarHolidayDAO();
+			List<CalendarHoliday> holidays = chDAO.readAll();
+			if(holidays.size() > 0){
+				for(CalendarHoliday cm : holidays){
+					if(cm.getType() == CalendarType.CALENDAR_SUBSTITUTE){
+						CalendarConvert cv = new CalendarConvert();
+						cv.setId(cm.getId());
+						cv.setStart(cm.getSubstituteDate());
+						cv.setTitle(cm.getTitle());
+						cv.setColor(cm.getColor());
+						cv.setType(cm.getType());
+						list.add(cv);
+					}else{
+						CalendarConvert cv = new CalendarConvert();
+						cv.setId(cm.getId());
+						cv.setStart(cm.getStart());
+						cv.setEnd(cm.getEnd());
+						cv.setTitle(cm.getTitle());
+						cv.setColor(cm.getColor());
+						cv.setType(cm.getType());
+						list.add(cv);
+					}
+				}
+			}
+		
 			Pessoa p = (Pessoa) request.getSession(false).getAttribute("logado");
 			if(p != null && p instanceof Usuario){
 				List<CalendarComment> comments = ((Usuario)p).getAllListComment();

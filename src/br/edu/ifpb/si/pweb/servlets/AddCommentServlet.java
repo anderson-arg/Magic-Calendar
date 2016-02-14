@@ -14,6 +14,7 @@ import br.edu.ifpb.si.pweb.model.CalendarComment;
 import br.edu.ifpb.si.pweb.model.Pessoa;
 import br.edu.ifpb.si.pweb.model.Usuario;
 import br.edu.ifpb.si.pweb.util.CalendarType;
+import br.edu.ifpb.si.pweb.util.Color;
 
 /**
  * Servlet implementation class ComentarioServlet
@@ -27,6 +28,7 @@ public class AddCommentServlet extends HttpServlet {
 		CalendarComment c = new CalendarComment();
 		c.setStart(request.getParameter("data").toString());
 		c.setTitle(request.getParameter("texto").toString());
+		c.setColor(Color.WHITE);
 		c.setType(CalendarType.CALENDAR_COMMENT);
 		
 		DAO.open();
