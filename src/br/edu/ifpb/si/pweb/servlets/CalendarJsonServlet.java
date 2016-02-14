@@ -3,6 +3,7 @@ package br.edu.ifpb.si.pweb.servlets;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -25,6 +26,11 @@ public class CalendarJsonServlet extends HttpServlet {
 
 	// essa class vai pegar todos os dados do banco e jogar no calendario
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		/*Date date = new Date();
+		String auxDate = date.toString();
+		int pos = auxDate.length();
+		auxDate = auxDate.substring(pos-4, pos);*/
+		
 		List list = new ArrayList();
 		ArrayList<CalendarComment> auxList = new ArrayList<CalendarComment>();
 		

@@ -36,7 +36,7 @@ public class LoginServlet extends HttpServlet {
 		DAO.close();
 		
 		if(p != null)
-			response.sendRedirect("painel.jsp");
+			response.sendRedirect("index.jsp");
 		
 	}
 

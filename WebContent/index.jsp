@@ -3,6 +3,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+<c:set var="typeUser" value="${sessionScope.logado }"/>
+
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -22,6 +24,10 @@
 <script>
 
 	$(document).ready(function() {
+		var CALENDAR_FIXED = 1;
+		var CALENDAR_MOVEMENT = 2;
+		var CALENDAR_SUBSTITUTE = 3;
+		var CALENDAR_COMMENT = 4;
 		
 		$('#calendar').fullCalendar({
 			header: {
@@ -29,26 +35,56 @@
 				center: 'title',
 				right: ''
 			},
-			defaultDate: '2016-02-08',
+			//defaultDate: '2016-02-08',
 			//theme: true,
 			editable: false,
 			eventLimit:true,
 			events: "/calendar/json.do",
 
-			//<c:if test="$(not empty requestScope)"></c:if>
+			
 			eventClick: function(calEvent, jsEvent, view) {
 				//$("#commentModal").modal();
-				window.location.href = "/calendar/altComentario.jsp?id='"+calEvent.id+"'&title='"+calEvent.title+"' ";
+				var typeUser = "${typeUser.getClass().name }";
+				var typeComment = "${typeComment }";
+				
+				if(typeUser == 'br.edu.ifpb.si.pweb.model.Admin'){
+					window.location.href = "/calendar/altComentario.jsp?id='"+calEvent.id+"'&title='"+calEvent.title+"' ";
+				}
+				if(typeUser == 'br.edu.ifpb.si.pweb.model.Usuario' && calEvent.type == CALENDAR_COMMENT){
+					window.location.href = "/calendar/altComentario.jsp?id='"+calEvent.id+"'&title='"+calEvent.title+"' ";
+				}
 
 			},
 			
 			dayClick: function(date, jsEvent, view) {
+				var typeUser = "${typeUser.getClass().name }";
+				if(typeUser == 'br.edu.ifpb.si.pweb.model.Usuario'){
+		       		window.location.href = "/calendar/comentario.jsp?date='"+date.format()+"' ";
+				}
 				
-		        window.location.href = "/calendar/comentario.jsp?date='"+date.format()+"' ";
-
+				if(typeUser == 'br.edu.ifpb.si.pweb.model.Admin'){
+		       		window.location.href = "/calendar/cadastroFeriado.jsp ";
+				}
 		    }
 			
 		});
+		
+		$(".fc-prev-button, .fc-next-button, .fc-today-button").click(function(){
+			var moment = $('#calendar').fullCalendar('getDate');
+			$.ajax({
+	            url: "/calendar/allFixedDate.do",
+	            type: "POST",
+	            data: {
+	                "date":moment
+	            },
+	            error:function(){
+	                alert("ERRO MENU");
+	            },
+	            success:function(data){
+	            	alert("OK");
+	            }
+	        });
+	    });
 		
 		$("#login").click(function(){
 	        $("#loginModal").modal();
@@ -101,15 +137,29 @@
 
 </head>
 <body>
-	<div id="topo">
+	
+	<div id="topo">	
 		<div id="menu">
 			<ul>
-				<c:if test="${empty sessionScope }">
-					<li><b id="login">Login</b></li>
-				</c:if>
+			<c:if test="${sessionScope.logado.getClass().name == 'br.edu.ifpb.si.pweb.model.Admin' }">
+				<li><b>Welcome, ${sessionScope.logado.name }</b></li>
+				<li id="acceptUser"><b>Accept User</b></li>
+				<li id="registerHoliday"><b>Register Holiday</b></li>
+				<li id="passwordChange"><b>Password Change</b></li>
+			</c:if>
+			<c:if test="${sessionScope.logado.getClass().name == 'br.edu.ifpb.si.pweb.model.Usuario' }">
+				<li id="accountDelete">AccountDelete</li>
+			</c:if>
+			<c:if test="${not empty sessionScope }">
+				<li id="logout"><a href="/calendar/logout.do"><b>Logout</b></a></li>
+			</c:if>
+			<c:if test="${empty sessionScope }">
+				<li><b id="login">Login</b></li>
+			</c:if>
 			</ul>
 		</div>
 	</div>
+	
 	<div id='calendar'></div>
 
 <!-- Tela Modal Login -->	

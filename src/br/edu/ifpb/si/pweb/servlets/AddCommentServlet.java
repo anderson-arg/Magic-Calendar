@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import br.edu.ifpb.si.pweb.dao.CalendarCommentDAO;
 import br.edu.ifpb.si.pweb.dao.DAO;
 import br.edu.ifpb.si.pweb.model.CalendarComment;
+import br.edu.ifpb.si.pweb.util.CalendarType;
 
 /**
  * Servlet implementation class ComentarioServlet
@@ -24,6 +25,7 @@ public class AddCommentServlet extends HttpServlet {
 		CalendarComment c = new CalendarComment();
 		c.setStart(request.getParameter("data").toString());
 		c.setTitle(request.getParameter("texto").toString());
+		c.setType(CalendarType.CALENDAR_COMMENT);
 		
 		DAO.open();
 		

@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 
 import br.edu.ifpb.si.pweb.interfaces.CalendarInterface;
 
@@ -18,11 +19,21 @@ public class CalendarHoliday implements CalendarInterface {
 	private String endDate;
 	private String color;
 	private int type;
+	@Transient
+	private String substituteDate;
 	@ManyToOne
 	private Admin admin;
 	
 	public CalendarHoliday(){}
 	
+	public String getSubstituteDate() {
+		return substituteDate;
+	}
+
+	public void setSubstituteDate(String substituteDate) {
+		this.substituteDate = substituteDate;
+	}
+
 	public Admin getAdmin() {
 		return admin;
 	}
