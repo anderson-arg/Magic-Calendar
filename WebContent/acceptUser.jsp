@@ -19,6 +19,24 @@
 <link href='bootstrap/css/bootstrap.min.css' rel='stylesheet' />
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
+
+<style type="text/css">
+
+	#view{
+		position:absolute;
+		width: 500px;
+		height: 500px; 
+		left: 50%;
+		top: 10%;
+		margin-left: -250px;
+	}
+	
+	#view h1{
+		text-align: center;
+	}
+
+</style>
+
 </head>
 <body>
 	<%
@@ -30,8 +48,10 @@
 	%>
 	
 	<c:if test="${list.size() > 0 }">
+		<div id="view">
 		<form action="acceptUser.do" method="get" >
-			<table>
+			<h1>Accept User</h1>
+			<table class="table table-striped">
 				<tr>
 					<th>Accept</th>
 					<th>Name</th>
@@ -44,8 +64,15 @@
 					</c:forEach>
 			</table>
 			<input type="submit" value="Accept" class="btn btn-lg btn-primary btn-block"/>
+			<a href="/calendar/index.jsp"><b class="btn btn-lg btn-primary btn-block">Back</b></a>
 		</form>
+		</div>
 	</c:if>
-	<c:if test="${list.size() == 0 }">Sem Cadastro Pendente!</c:if>
+	<c:if test="${list.size() == 0 }">
+		<div class="alert alert-danger">
+  			<strong>Danger!</strong> Sem Cadastro Pendente!
+		</div>
+		
+	</c:if>
 </body>
 </html>

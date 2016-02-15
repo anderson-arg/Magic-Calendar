@@ -43,15 +43,15 @@ public class LoginServlet extends HttpServlet {
 				request.setAttribute("msg", msg);
 				request.getRequestDispatcher("index.jsp").forward(request, response);
 			}
-			
+			else
 			if(p instanceof Usuario && !((Usuario)p).isStatus()){
 				msg = "Aguarde a aprovação do ADM!";
 				request.setAttribute("msg", msg);
 				request.getRequestDispatcher("index.jsp").forward(request, response);
+			}else{
+				HttpSession session = request.getSession();
+				session.setAttribute("logado", p);
 			}
-			
-			HttpSession session = request.getSession();
-			session.setAttribute("logado", p);
 		DAO.close();
 		
 		if(p != null)

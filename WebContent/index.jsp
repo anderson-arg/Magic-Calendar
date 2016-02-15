@@ -147,13 +147,36 @@
   		color:#f00;
   		font-size: 20px;
   	}
+  	
+  	#help{
+  		position: absolute;
+  		left: 5%;
+  		top: 30%;
+  	}
+  	
+  	#red{
+  		width: 20px;
+  		height: 10px; 
+  		background-color: #f00;
+  		
+  	}
+  	#green{
+  		width: 20px;
+  		height: 10px; 
+  		background-color: #0f0;
+  	}
+  	#blue{
+  		width: 20px;
+  		height: 10px; 
+  		background-color: #00f;
+  	}
 
 </style>
 
 </head>
 <body>
 	
-	<div id="topo">	
+	<div id="topo">
 		<div id="msg">${requestScope.msg }</div>
 		<div id="menu">
 			<ul>
@@ -176,7 +199,22 @@
 			</ul>
 		</div>
 	</div>
-	
+	<div id="help">
+		<table>
+			<tr>
+				<td><div id="red"></div></td>
+				<td><b>Fixed</b></td>
+			</tr>
+			<tr>
+				<td><div id="green"></div></td>
+				<td><b>Movement</b></td>
+			</tr>
+			<tr>
+				<td><div id="blue"></div></td>
+				<td><b>Substitute</b></td>
+			</tr>
+		</table>
+	</div>
 	<div id='calendar'></div>
 
 <!-- Tela Modal Login -->	

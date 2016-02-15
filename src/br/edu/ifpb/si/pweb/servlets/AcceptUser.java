@@ -40,7 +40,7 @@ public class AcceptUser extends HttpServlet {
 			}
 			DAO.commit();
 		DAO.close();
-		msg = "Cadastros Aceitos!";
+		msg = "Cadastro(s) Aceito(s)!";
 		request.setAttribute("msg", msg);
 		request.getRequestDispatcher("index.jsp").forward(request, response);
 	}
