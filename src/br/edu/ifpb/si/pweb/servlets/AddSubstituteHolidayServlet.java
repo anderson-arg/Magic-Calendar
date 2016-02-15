@@ -27,11 +27,11 @@ public class AddSubstituteHolidayServlet extends HttpServlet {
 		
 		String initDate = request.getParameter("date").toString();
 		String subDate = request.getParameter("subDate").toString();
-		String descMov = request.getParameter("desc").toString();
+		//String descMov = request.getParameter("desc").toString();
 		
 		CalendarHolidayDAO chDAO = new CalendarHolidayDAO();
 		CalendarHoliday ch = chDAO.readDate(initDate);
-		ch.setTitle(descMov);
+		//ch.setTitle(descMov);
 		ch.setSubstituteDate(subDate);
 		ch.setColor(Color.BLUE);
 		ch.setType(CalendarType.CALENDAR_SUBSTITUTE);

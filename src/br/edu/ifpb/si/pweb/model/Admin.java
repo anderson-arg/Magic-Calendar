@@ -26,7 +26,6 @@ public class Admin extends Pessoa {
 	}
 	
 	public void delHoliday(CalendarHoliday holiday){
-		holiday.setAdmin(null);
 		this.listHoliday.remove(holiday);
 	}
 	

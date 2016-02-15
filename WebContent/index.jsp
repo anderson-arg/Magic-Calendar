@@ -28,6 +28,7 @@
 		var CALENDAR_MOVEMENT = 2;
 		var CALENDAR_SUBSTITUTE = 3;
 		var CALENDAR_COMMENT = 4;
+		var typeUser = "${typeUser.getClass().name }";
 		
 		$('#calendar').fullCalendar({
 			header: {
@@ -44,8 +45,6 @@
 			
 			eventClick: function(calEvent, jsEvent, view) {
 				//$("#commentModal").modal();
-				var typeUser = "${typeUser.getClass().name }";
-				var typeComment = "${typeComment }";
 				
 				if(typeUser == 'br.edu.ifpb.si.pweb.model.Admin'){
 					window.location.href = "/calendar/altHoliday.jsp?id='"+calEvent.id+"'&title='"+calEvent.title+"' ";
@@ -58,14 +57,20 @@
 			},
 			
 			dayClick: function(date, jsEvent, view) {
-				var typeUser = "${typeUser.getClass().name }";
 				if(typeUser == 'br.edu.ifpb.si.pweb.model.Usuario'){
 		       		window.location.href = "/calendar/comentario.jsp?date='"+date.format()+"' ";
 				}
 				
-				if(typeUser == 'br.edu.ifpb.si.pweb.model.Admin'){
+				/*if(typeUser == 'br.edu.ifpb.si.pweb.model.Admin'){
 		       		window.location.href = "/calendar/cadastroFeriado.jsp ";
-				}
+				}*/
+		    },
+		    
+		    eventMouseover: function( event, jsEvent, view ) { 
+		    	if(event.type == CALENDAR_COMMENT && typeUser == 'br.edu.ifpb.si.pweb.model.Usuario' )
+		    		$(this).css('cursor', 'pointer');
+		    	if(typeUser == 'br.edu.ifpb.si.pweb.model.Admin' )
+		    		$(this).css('cursor', 'pointer');
 		    }
 			
 		});
@@ -87,6 +92,10 @@
 		$("#login").click(function(){
 	        $("#loginModal").modal();
 	    });
+		
+		$("#login").mouseover(function() {
+			$(this).css('cursor', 'pointer');
+		});
 		
 	});
 </script>
@@ -130,6 +139,14 @@
  	.modal-footer {
       background-color: #f9f9f9;
   	}
+  	
+  	#msg{
+  		position: absolute;
+  		top:20px;
+  		left: 20%;
+  		color:#f00;
+  		font-size: 20px;
+  	}
 
 </style>
 
@@ -137,16 +154,18 @@
 <body>
 	
 	<div id="topo">	
+		<div id="msg">${requestScope.msg }</div>
 		<div id="menu">
 			<ul>
 			<c:if test="${sessionScope.logado.getClass().name == 'br.edu.ifpb.si.pweb.model.Admin' }">
 				<li><b>Welcome, ${sessionScope.logado.name }</b></li>
-				<li id="acceptUser"><b>Accept User</b></li>
-				<li id="registerHoliday"><b>Register Holiday</b></li>
-				<li id="passwordChange"><b>Password Change</b></li>
+				<li id="acceptUser"><a href="/calendar/acceptUser.jsp">Accept User</a></b></li>
+				<li id="registerHoliday"><a href="/calendar/cadastroFeriado.jsp">Register Holiday</a></li>
+				<li id="passwordChange"><a href="/calendar/passwordChange.jsp">Password Change</a></li>
 			</c:if>
 			<c:if test="${sessionScope.logado.getClass().name == 'br.edu.ifpb.si.pweb.model.Usuario' }">
-				<li id="accountDelete">AccountDelete</li>
+				<li><b>Welcome, ${sessionScope.logado.name }</b></li>
+				<li id="accountDelete"><a href="/calendar/delAccount.do">AccountDelete</a></li>
 			</c:if>
 			<c:if test="${not empty sessionScope }">
 				<li id="logout"><a href="/calendar/logout.do"><b>Logout</b></a></li>
@@ -177,11 +196,11 @@
           <form action="login.do" method="post" role="form">
             <div class="form-group">
               <label for="name"><span class="glyphicon glyphicon-user"></span> Username</label>
-              <input type="text" name="name" class="form-control" id="name" placeholder="Enter name">
+              <input type="text" name="name" class="form-control" id="name" placeholder="Enter name" required="required">
             </div>
             <div class="form-group">
               <label for="password"><span class="glyphicon glyphicon-eye-open"></span> Password</label>
-              <input type="password" name="password" class="form-control" id="password" placeholder="Enter password">
+              <input type="password" name="password" class="form-control" id="password" placeholder="Enter password" required="required">
             </div>
               <button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-off"></span> Login</button>
           </form>
@@ -189,41 +208,6 @@
         <div class="modal-footer">
           <button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
           <p>Not a member? <a href="/calendar/cadastro.jsp">Sign Up</a></p>
-        </div>
-      </div>
-      
-    </div>
-  </div> 
-</div>
-
-<!-- Tela Modal Login -->	
-<div class="container">
-
-  <!-- Modal -->
-  <div class="modal fade" id="commentModal" role="dialog">
-    <div class="modal-dialog">
-    
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header" style="padding:35px 50px;">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4><span class="glyphicon"></span> Comment</h4>
-        </div>
-        <div class="modal-body" style="padding:40px 50px;">
-          <form action="login.do" role="form">
-            <div class="form-group">
-              <label for="name"><span class="glyphicon glyphicon-user"></span> Username</label>
-              <input type="text" class="form-control" id="name" placeholder="Enter name">
-            </div>
-            <div class="form-group">
-              <label for="password"><span class="glyphicon glyphicon-eye-open"></span> Password</label>
-              <input type="password" class="form-control" id="password" placeholder="Enter password">
-            </div>
-              <button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-off"></span> Login</button>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
         </div>
       </div>
       

@@ -5,9 +5,10 @@
 <c:if test="${empty sessionScope }">
 	<jsp:include page="index.jsp"></jsp:include>
 </c:if>
-<c:if test="${sessionScope.logado.getClass().name == 'br.edu.ifpb.si.pweb.model.Admin' }">
+<c:if test="${sessionScope.logado.getClass().name == 'br.edu.ifpb.si.pweb.model.Usuario' }">
 	<jsp:include page="index.jsp"></jsp:include>
 </c:if>
+
 <html>
 <head>
 <link href='bootstrap/css/bootstrap.min.css' rel='stylesheet' />
@@ -15,28 +16,27 @@
 <title>Insert title here</title>
 </head>
 <body>
-
-<form action="altComment.do" method="get" class="form-group" >
+	<form action="passChange.do" method="post" class="form-group" >
   	<div class="container">
    	<div class="row">
         <div class="col-sm-6 col-md-4 col-md-offset-4">
         <h1 class="text-center login-title">Password Change</h1>
         <div class="account-wall">
 		<form class="form-signin">
-
-	<form>
 		
-		<input type="hidden" name="id" value=${param.id } class="form-control" />
-		title: <input type="text" name="texto" value=${param.title } class="form-control" required="required"/><br>
-		<input type="submit" name="submit" value="Update"  class="btn btn-lg btn-primary btn-block"/><input type="submit" name="submit" value="Delete"  class="btn btn-lg btn-primary btn-block"/>
-		
-	</form>
-	<a href="/calendar/index.jsp" class="btn btn-lg btn-primary btn-block">Voltar</a>
-
-        </div>
+		<form>
+		Senha:<input type="password" name="pass" class="form-control" required="required"/><br>
+		Senha Nova:<input type="password" name="newPass" class="form-control" required="required"/><br>
+		Re-Senha Nova:<input type="password" name="reNewPass" class="form-control" required="required"/><br>
+		<input type="submit" value="Enviar" class="btn btn-lg btn-primary btn-block"/><br>
+		</form>
+	
+	        </div>
     </div>
 </div>
 </div>
+
 	</form>
+	
 </body>
 </html>

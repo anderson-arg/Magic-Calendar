@@ -15,6 +15,7 @@ import br.edu.ifpb.si.pweb.model.Admin;
 import br.edu.ifpb.si.pweb.model.CalendarHoliday;
 import br.edu.ifpb.si.pweb.model.Pessoa;
 import br.edu.ifpb.si.pweb.util.CalendarType;
+import br.edu.ifpb.si.pweb.util.Color;
 
 /**
  * Servlet implementation class AltFixedHoliday
@@ -39,9 +40,16 @@ public class AltHolidayServlet extends HttpServlet {
 			((Admin)p).setHoliday(ch);
 			aDAO.update((Admin)p);
 		}else{
-			((Admin)p).delHoliday(ch);
-			chDAO.delete(ch);
-			aDAO.update((Admin)p);
+			/*if(ch.getType() == CalendarType.CALENDAR_SUBSTITUTE){
+				ch.setType(CalendarType.CALENDAR_FIXED);
+				ch.setColor(Color.RED);
+				((Admin)p).setHoliday(ch);
+				aDAO.update((Admin)p);
+			}else{*/
+				ch.setAdmin(null);
+				((Admin)p).delHoliday(ch);
+				aDAO.update((Admin)p);
+		  //}
 		}
 			
 		DAO.commit();

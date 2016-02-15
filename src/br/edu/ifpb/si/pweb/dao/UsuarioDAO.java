@@ -1,5 +1,7 @@
 package br.edu.ifpb.si.pweb.dao;
 
+import java.util.List;
+
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
@@ -23,6 +25,16 @@ public class UsuarioDAO extends DAO<Usuario>{
 			Query q = manager.createQuery("select u from Usuario u where u.name = '"+name+"' AND u.password = '"+pass+"' ");
 			Usuario u = (Usuario) q.getSingleResult();
 			return u;
+		}catch(NoResultException e){
+			return null;
+		}
+	}
+	
+	public List<Usuario> readAllUserInactive(){
+		try{
+			Query q = manager.createQuery("select u from Usuario u where u.status = 'false' ");
+			List<Usuario> list = (List<Usuario>) q.getResultList();
+			return list;
 		}catch(NoResultException e){
 			return null;
 		}

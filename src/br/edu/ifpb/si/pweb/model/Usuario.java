@@ -11,17 +11,27 @@ import javax.persistence.OneToMany;
 @Entity
 public class Usuario extends Pessoa {
 	
+	private boolean status;
+	
 	@OneToMany(mappedBy="usuario", cascade=CascadeType.ALL, fetch=FetchType.EAGER, orphanRemoval=true)
 	private List<CalendarComment> listComment;
-	
 	
 	public Usuario(String nome, String senha){
 		super(nome, senha);
 		this.listComment = new ArrayList<CalendarComment>();
+		this.status = false;
 	}
 	
 	public Usuario(){}
 	
+	public boolean isStatus() {
+		return status;
+	}
+
+	public void setStatus(boolean status) {
+		this.status = status;
+	}
+
 	public void addComment(CalendarComment comment){
 		comment.setUsuario(this);
 		this.listComment.add(comment);

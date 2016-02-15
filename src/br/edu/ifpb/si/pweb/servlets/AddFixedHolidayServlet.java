@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import br.edu.ifpb.si.pweb.dao.AdminDAO;
+import br.edu.ifpb.si.pweb.dao.CalendarHolidayDAO;
 import br.edu.ifpb.si.pweb.dao.DAO;
 import br.edu.ifpb.si.pweb.model.Admin;
 import br.edu.ifpb.si.pweb.model.CalendarHoliday;
@@ -30,7 +31,7 @@ public class AddFixedHolidayServlet extends HttpServlet {
 		
 		DAO.open();
 
-		String fixedDate = date(request.getParameter("date").toString(), currentYear);
+		String fixedDate = date(request.getParameter("date").toString(), currentYear);		
 		String desc = request.getParameter("desc").toString();
 		CalendarHoliday ch = new CalendarHoliday();
 		ch.setTitle(desc);

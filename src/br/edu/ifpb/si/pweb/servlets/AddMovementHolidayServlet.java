@@ -32,7 +32,7 @@ public class AddMovementHolidayServlet extends HttpServlet {
 		ch.setTitle(descMov);
 		ch.setStart(startDate);
 		ch.setEnd(endDate);
-		ch.setColor(Color.BLUE);
+		ch.setColor(Color.GREEN);
 		ch.setType(CalendarType.CALENDAR_MOVEMENT);
 
 		AdminDAO aDAO = new AdminDAO();
