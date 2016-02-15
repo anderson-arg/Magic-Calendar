@@ -72,4 +72,10 @@ public class Admin extends Pessoa {
 		return list;
 	}
 	
+	public void setListFixedHoliday(List<CalendarHoliday> list){
+		for(CalendarHoliday ch : list){
+			setHoliday(ch);
+		}
+	}
+	
 }

@@ -1,6 +1,7 @@
 package br.edu.ifpb.si.pweb.servlets;
 
 import java.io.IOException;
+import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,9 +23,14 @@ public class AddFixedHolidayServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Date date = new Date();
+		String currentYear = date.toString();
+		int pos = currentYear.length();
+		currentYear = currentYear.substring(pos-4, pos);
+		
 		DAO.open();
 
-		String fixedDate = request.getParameter("date").toString();
+		String fixedDate = date(request.getParameter("date").toString(), currentYear);
 		String desc = request.getParameter("desc").toString();
 		CalendarHoliday ch = new CalendarHoliday();
 		ch.setTitle(desc);
@@ -48,11 +54,11 @@ public class AddFixedHolidayServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	}
 	
-	private String date(String date){
+	private String date(String date, String currentYear){
 		String day = date.substring(8, 10);
 		String month = date.substring(5, 7);
 		String year = date.substring(0, 4);
-		String newFormat = year+"-"+month+"-"+day;
+		String newFormat = currentYear+"-"+month+"-"+day;
 		return newFormat;
 	}
 

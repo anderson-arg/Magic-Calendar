@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import br.edu.ifpb.si.pweb.dao.AdminDAO;
+import br.edu.ifpb.si.pweb.dao.CalendarHolidayDAO;
 import br.edu.ifpb.si.pweb.dao.DAO;
 import br.edu.ifpb.si.pweb.model.Admin;
 import br.edu.ifpb.si.pweb.model.CalendarHoliday;
@@ -27,6 +28,7 @@ public class AltHolidayServlet extends HttpServlet {
 		
 		DAO.open();
 		AdminDAO aDAO = new AdminDAO();
+		CalendarHolidayDAO chDAO = new CalendarHolidayDAO();
 		Pessoa p = (Pessoa) request.getSession(false).getAttribute("logado");
 		CalendarHoliday ch = ((Admin)p).getHoliday(Integer.parseInt(request.getParameter("id").toString()));
 		
@@ -38,6 +40,7 @@ public class AltHolidayServlet extends HttpServlet {
 			aDAO.update((Admin)p);
 		}else{
 			((Admin)p).delHoliday(ch);
+			chDAO.delete(ch);
 			aDAO.update((Admin)p);
 		}
 			
