@@ -15,7 +15,7 @@ public abstract class DAO<T> implements DAOInterface<T> {
 	public static void open(){
 		if(manager==null){
 			EntityManagerFactory factory = 
-				Persistence.createEntityManagerFactory("turmas");
+				Persistence.createEntityManagerFactory("calendar");
 			manager = factory.createEntityManager();
 		}
 	}

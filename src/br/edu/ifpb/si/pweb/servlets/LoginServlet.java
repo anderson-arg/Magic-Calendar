@@ -51,11 +51,9 @@ public class LoginServlet extends HttpServlet {
 			}else{
 				HttpSession session = request.getSession();
 				session.setAttribute("logado", p);
+				DAO.close();
+				request.getRequestDispatcher("index.jsp").forward(request, response);
 			}
-		DAO.close();
-		
-		if(p != null)
-			response.sendRedirect("index.jsp");
 		
 	}
 
